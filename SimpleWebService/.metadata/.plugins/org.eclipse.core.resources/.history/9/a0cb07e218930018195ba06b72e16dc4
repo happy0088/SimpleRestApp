@@ -1,0 +1,13 @@
+package com.absonworld.happy.todoList.resource;
+
+import javax.ws.rs.GET;
+
+public class TODOResource {
+
+	@GET
+	public String getTODO()
+	{
+		return "Here's Your TODO ";
+	}
+	
+}

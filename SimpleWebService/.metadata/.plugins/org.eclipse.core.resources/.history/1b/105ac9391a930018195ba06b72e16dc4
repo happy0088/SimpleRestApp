@@ -1,0 +1,90 @@
+package org.absonworld.happy.messenger.service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriBuilder;
+import javax.ws.rs.core.UriInfo;
+
+import org.absonworld.happy.messenger.database.MessangerDatabase;
+import org.absonworld.happy.messenger.exception.DoesNotExistException;
+import org.absonworld.happy.messenger.model.Link;
+import org.absonworld.happy.messenger.model.Message;
+import org.absonworld.happy.messenger.resource.MessageResource;
+
+public class MessageService {
+
+	private Map<Long,Message> messages = MessangerDatabase.getmessages();
+	
+	public MessageService()
+	{
+		messages.put(10L, new Message(10, "Message1", new Date(), "happy"));
+		messages.put(11L,new Message(11, "Message2", new Date(), "happy"));
+		 
+	}
+		
+	
+	public List<Message> getAllMessages()
+	{
+		//Map<Long,Message> message = new HashMap<Long,Message>();
+		return (new ArrayList<Message>(messages.values()));
+		
+	}
+	
+	
+	public Message getMessage(Long id, UriInfo uriInfo)
+	{
+		Message message1=messages.get(id);
+		String errorMsg=String.valueOf(id)+"does not exist";
+		System.out.println("Erro msg:"+errorMsg);
+		if(message1 == null)
+		{
+		throw new DoesNotExistException(errorMsg);
+			//throw new WebApplicationException("Not present",Status.NOT_FOUND);
+		}
+		message1.getLinks().add(new Link(uriInfo.getAbsolutePath().toString(),"self"));
+		String uri = uriInfo.getBaseUriBuilder()
+				.path(MessageResource.class)
+				.path(MessageResource.class,"showComment")
+				.resolveTemplate("messageId",message1.getId())
+				.build().toString();
+		message1.getLinks().add(new Link(uri,"comment"));
+		return message1;
+	}
+	
+	public Message insertMessage(Message message)
+	{
+		//Map<Long,Message> message = new HashMap<Long,Message>();
+		Long location = messages.size()+1L;
+		messages.put(location,message );
+		return ((messages.get(location)));
+		
+	}
+	
+	public List<Message> updateMessage(Long id,Message message)
+	{
+		//Map<Long,Message> message = new HashMap<Long,Message>();
+		messages.put(id,message );
+		return (new ArrayList<Message>(messages.values()));
+		
+	}
+	
+	public List<Message> deleteMessage(Long id)
+	{
+		//Map<Long,Message> message = new HashMap<Long,Message>();
+		messages.remove(id);
+		return (new ArrayList<Message>(messages.values()));
+		
+	}
+	
+	
+	
+	
+	
+	
+}
