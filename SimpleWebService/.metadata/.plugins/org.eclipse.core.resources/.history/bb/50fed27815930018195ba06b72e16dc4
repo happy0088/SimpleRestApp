@@ -1,0 +1,5 @@
+package com.absonworld.happy.todoList.resource;
+
+public class TODOResource {
+
+}

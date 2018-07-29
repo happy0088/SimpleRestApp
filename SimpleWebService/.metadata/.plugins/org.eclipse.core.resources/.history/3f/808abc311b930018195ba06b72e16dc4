@@ -1,0 +1,31 @@
+package org.absonworld.happy.messenger.database;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.absonworld.happy.messenger.model.Comment;
+import org.absonworld.happy.messenger.model.Message;
+import org.absonworld.happy.messenger.model.Profile;
+
+public class MessangerDatabase {
+
+	public static Map<Long,Message> messages =  new HashMap<Long,Message>();
+	public static Map<String,Profile> profiles =  new HashMap<String,Profile>();
+	public static Map<Long,Comment> comments =  new HashMap<Long,Comment>();
+	
+	
+	public static Map<Long,Message>getmessages()
+	{
+		return messages;
+	}
+	
+	public static Map<String,Profile>getprofiles()
+	{
+		return profiles;
+	}
+	
+	public static Map<Long,Comment>getcomments()
+	{
+		return comments;
+	}
+}

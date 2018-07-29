@@ -1,0 +1,11 @@
+package com.absonworld.happy.todoList.resource;
+
+public class TODOResource {
+
+	
+	public String getTODO()
+	{
+		return "Here's Your TODO ";
+	}
+	
+}

@@ -1,0 +1,22 @@
+package com.absonworld.happy.todoList.resource;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import com.absonworld.happy.todoList.service.TODOService;
+
+@Path("/resources")
+public class TODOResource {
+
+	TODOService todo = new TODOService();
+	
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getTODO()
+	{
+		return todo.getAllMessages();
+	}
+	
+}
