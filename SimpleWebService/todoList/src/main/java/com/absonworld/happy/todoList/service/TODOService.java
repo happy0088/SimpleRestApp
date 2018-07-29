@@ -28,8 +28,8 @@ public class TODOService {
 
 	public Message getMessage(Long id, UriInfo uriInfo) {
 		Message message1 = messages.get(id);
-		String errorMsg = String.valueOf(id) + "does not exist";
-		System.out.println("Erro msg:" + errorMsg);
+		String errorMsg = String.valueOf(id) + " does not exist";
+		//System.out.println("Erro msg:" + errorMsg);
 		if (message1 == null) {
 			throw new DoesNotExistException(errorMsg);
 		}
